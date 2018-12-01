@@ -5,7 +5,7 @@ extern crate tokio_serial;
 
 use tokio_core::reactor::Core;
 use futures::future::Future;
-use tokio_serial::{Serial, BaudRate, SerialPortSettings};
+use tokio_serial::{Serial, SerialPortSettings};
 use tokio_modbus::*;
 
 pub fn main() {
@@ -15,8 +15,8 @@ pub fn main() {
     let server_addr = 0x01;
 
     let mut settings = SerialPortSettings::default();
-    settings.baud_rate = BaudRate::Baud19200;
-    let mut port = Serial::from_path(port_path, &settings, &handle).unwrap();
+    settings.baud_rate = 19200;
+    let mut port = Serial::from_path(port_path, &settings).unwrap(); // v3.1
     port.set_exclusive(false).unwrap();
 
     let task = Client::connect_rtu(port, server_addr, &handle).and_then(|client| {
