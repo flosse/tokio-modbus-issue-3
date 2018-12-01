@@ -16,8 +16,7 @@ pub fn main() {
 
     let mut settings = SerialPortSettings::default();
     settings.baud_rate = 19200;
-    let mut port = Serial::from_path(port_path, &settings).unwrap(); // v3.1
-    port.set_exclusive(false).unwrap();
+    let port = Serial::from_path(port_path, &settings).unwrap(); // v3.1
 
     let task = Client::connect_rtu(port, server_addr, &handle).and_then(|client| {
         println!("Reading a sensor value");
